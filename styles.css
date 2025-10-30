@@ -1,0 +1,215 @@
+@import url('https://fonts.googleapis.com/css2?family=Ms+Madi&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Content&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: 'Content', 'Times New Roman', Times, serif, sans-serif;
+    text-align: center;
+    background-image: linear-gradient(to bottom right, rgb(14, 66, 14), rgb(5, 136, 5)); /* Set main background gradient here */
+    color: #f4f4f4;
+    line-height: 1.6;
+    padding-top: 72px;
+}
+/* Headings */
+h1 {
+    font-family: 'Ms Madi', cursive;
+    font-size: 3.5em;
+    margin: 20px 0 10px 0;
+    text-align: center;
+}
+
+.modal-content {
+    background: #ad6404;
+    margin: 10% auto;
+    padding: 30px 40px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    position: relative;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+input[type="text"], input[type="email"], select {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0 20px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    text-align: left;
+    margin-left: 5%;
+}
+
+button[type="submit"] {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+/* Home page paragraph */
+p#home_p {
+    padding: 20px;
+    font-size: 1.2em;
+    line-height: 1.8;
+    box-sizing: border-box;
+    border-radius: 5px;
+    margin: 10px auto;
+    max-width: 800px;
+    text-align: center;
+}
+
+li:hover {
+    cursor: pointer;
+    color: #007BFF;
+}
+
+#rsvp_modal {
+    display: none;
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+/* RSVP Popup Modal Styles */
+#rsvp_popup {
+    display: none;
+    position: fixed;
+    z-index: 2;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    padding: 30px 40px;
+    border-radius: 12px;
+    min-width: 300px;
+    max-width: 90vw;
+}
+
+.popup-content {
+    text-align: center;
+}
+
+/* Collapsible nav / quick links */
+.nav-container {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    z-index: 1000;
+    display: block;
+}
+.nav-container #menuToggle {
+    background: #ad6404;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+.nav-container #menuToggle[aria-expanded="true"] {
+    background: #ad6404;
+}
+.quick-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 8px;
+    background: rgba(255,255,255,0.04);
+    padding: 8px;
+    border-radius: 6px;
+    min-width: 160px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+}
+.quick-links a {
+    color: #f4f4f4;
+    padding: 8px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    display: block;
+}
+.quick-links a:hover {
+    background: rgba(255,255,255,0.06);
+}
+
+/* Button Styles */
+button {
+    background-color: rgb(3, 163, 212);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+}
+
+#open_rsvp:hover {
+    background-color: rgb(2, 121, 157);
+    cursor: pointer;
+}
+
+/* Hidden state for quick links when using the 'hidden' attribute */
+[hidden].quick-links {
+    display: none !important;
+}
+
+/* FAQ Section Styles */
+.faq_questions {
+    font-family: 'Content', 'Times New Roman', Times, serif, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.faq_questions p {
+    font-size: 20px;
+    margin: 25px;
+    line-height: 1.6;
+}
+/* Footer Styles */
+footer {
+    background-color: #ad6404;
+    color: #f4f4f4;
+    text-align: center;
+    padding: 15px 0;
+    width: 100%;
+    margin-top: auto; /* push footer to bottom when content is short */
+}
+
+/* Ensure main content expands so footer stays at bottom */
+main {
+    flex: 1 0 auto;
+}
