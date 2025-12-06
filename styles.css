@@ -467,6 +467,12 @@ main {
         padding-right: 16px;
     }
 
+    /* Hide bottom vines on mobile */
+    body::after,
+    footer::before {
+        display: none;
+    }
+    
     /* Make RSVP popup responsive and centered */
     #rsvp_popup {
         left: 50%;
