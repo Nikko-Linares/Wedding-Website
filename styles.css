@@ -17,11 +17,32 @@ body {
     min-height: 100vh;
     font-family: 'Content', 'Times New Roman', Times, serif, sans-serif;
     text-align: center;
-    background-image: linear-gradient(to bottom right, rgb(14, 66, 14), rgb(5, 136, 5)); /* Set main background gradient here */
+    background-color: #305501; /* Set main background gradient here */
     color: #f4f4f4;
     line-height: 1.6;
     padding-top: 72px;
+    padding-left: 30px;
+    padding-right: 30px;
 }
+
+/* Decorative fixed side trees */
+body::before,
+body::after {
+    content: '';
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 4000px;
+    width: 650px;
+    background: url("image folder/redwood_tree3.png") no-repeat center center;
+    background-size: contain;
+    pointer-events: none;
+    opacity: 0.95;
+}
+
+body::before { left: 0; }
+body::after { right: 0; transform: translateY(-50%) scaleX(-1); }
+
 /* Headings */
 h1 {
     font-family: 'Ms Madi', cursive;
@@ -31,7 +52,7 @@ h1 {
 }
 
 .modal-content {
-    background: #ad6404;
+    background: #b3551e;
     margin: 10% auto;
     padding: 30px 40px;
     border-radius: 10px;
@@ -78,6 +99,57 @@ button[type="submit"] {
 button[type="submit"]:hover {
     background-color: #0056b3;
 }
+
+/* Title Images (Home gallery) */
+.title-gallery {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+#titleImages {
+    padding: 20px;
+    width: 300px;
+    height: auto;
+    display: block;
+}
+
+/* RSVP Page Image */
+#rsvpImages {
+    padding: 20px;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Donations Page Images Gallery */
+.donations-gallery {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    flex-wrap: wrap;
+}
+
+.donationsImages {
+    width: 300px;
+    height: auto;
+    padding: 20px;
+}
+
+/* FAQ Page Image */
+#faqImages {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin: 0 auto;
+}
+
 /* Home page paragraph */
 p#home_p {
     padding: 20px;
@@ -93,6 +165,31 @@ p#home_p {
 li:hover {
     cursor: pointer;
     color: #007BFF;
+}
+
+/* Hide side trees and restore padding on small screens */
+@media (max-width: 960px) {
+    body {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+    body::before,
+    body::after {
+        display: none;
+    }
+}
+
+/* Home gallery: match donations behavior on small screens */
+@media (max-width: 800px) {
+    .title-gallery {
+        gap: 12px;
+    }
+    #titleImages {
+        width: 90%;
+        max-width: 320px;
+        height: auto;
+        margin: 0 auto;
+    }
 }
 
 #rsvp_modal {
@@ -135,7 +232,7 @@ li:hover {
     display: block;
 }
 .nav-container #menuToggle {
-    background: #ad6404;
+    background: #b3551e;
     color: #333;
     border: 1px solid #ccc;
     padding: 8px 12px;
@@ -144,7 +241,7 @@ li:hover {
     box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 .nav-container #menuToggle[aria-expanded="true"] {
-    background: #ad6404;
+    background: #b3551e;
 }
 .quick-links {
     display: flex;
@@ -199,13 +296,78 @@ button {
     margin: 25px;
     line-height: 1.6;
 }
+
+/* faq links */
+#cabins, #moodboard {
+    color:rgb(2, 121, 157);
+    text-decoration: underline;
+}
+
+#cabins:hover, #moodboard:hover {
+    color: rgb(135, 227, 255);
+    cursor: pointer;
+}
+
+/* Phone view */
+@media (max-width: 800px) {
+    button {
+        width: 100%;
+        padding: 15px;
+        height: auto;
+        margin-bottom: 10px;
+    }
+
+    .title-gallery {
+        gap: 10px;
+        padding: 10px;
+        align-items: first baseline;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    #titleImages {
+        width: 35%;
+        height: auto;
+        padding: 10px;
+    }
+
+    #rsvpImages {
+        width: 100%;
+        height: auto;
+        padding: 10px;
+    }
+
+    .donations-gallery {
+        gap: 10px;
+        padding: 10px;
+        align-items: first baseline;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+    }
+
+    .donationsImages {
+        width: 35%;
+        height: auto;
+        padding: 10px;
+    }
+
+}
 /* Footer Styles */
 footer {
-    background-color: #ad6404;
+    background-color: #b3551e;
     color: #f4f4f4;
     text-align: center;
     padding: 15px 0;
-    width: 100%;
+    width: 100vw;
+    margin-left: calc(-450px);
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
     margin-top: auto; /* push footer to bottom when content is short */
 }
 
