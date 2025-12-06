@@ -452,11 +452,11 @@ main {
 @media (max-width: 700px) {
     /* Remove negative margins that were used for wide screens */
     footer {
-        width: 100%;
-        margin-left: 0;
-        margin-right: 0;
-        left: auto;
-        right: auto;
+        width: 100vw;
+        margin-left: -50vw;
+        margin-right: -50vw;
+        left: 50%;
+        right: 50%;
         position: relative;
         padding: 20px 0;
     }
@@ -472,6 +472,13 @@ main {
     footer::before {
         display: none !important;
         visibility: hidden !important;
+    }
+
+    /* Make top vines smaller on mobile */
+    body::before,
+    main::after {
+        width: 150px !important;
+        height: 150px !important;
     }
     
     /* Make RSVP popup responsive and centered */
