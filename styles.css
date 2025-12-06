@@ -29,26 +29,71 @@ body {
     padding-top: 72px;
     padding-left: 16px;
     padding-right: 16px;
+    position: relative;
 }
 
-/* Decorative fixed side trees - hidden by default */
-body::before,
+/* Decorative corner vines - upper left */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 300px;
+    background: url("image folder/trailing_vines_corner.png") no-repeat top left;
+    background-size: contain;
+    pointer-events: none;
+    opacity: 0.8;
+    z-index: 0;
+}
+
+/* Decorative corner vines - lower right */
 body::after {
     content: '';
     position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 100vh;
-    width: var(--side-tree-width);
-    background: url("image folder/redwood_tree3.png") no-repeat center center;
+    bottom: 0;
+    right: 0;
+    width: 300px;
+    height: 300px;
+    background: url("image folder/trailing_vines_corner.png") no-repeat bottom right;
     background-size: contain;
     pointer-events: none;
-    opacity: 0.95;
-    display: none;
+    opacity: 0.8;
+    z-index: 0;
+    transform: rotate(180deg);
 }
 
-body::before { left: 0; }
-body::after { right: 0; transform: translateY(-50%) scaleX(-1); }
+/* Decorative corner vines - upper right (using main) */
+main::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 300px;
+    background: url("image folder/trailing_vines_corner.png") no-repeat top right;
+    background-size: contain;
+    pointer-events: none;
+    opacity: 0.8;
+    z-index: 0;
+    transform: scaleX(-1);
+}
+
+/* Decorative corner vines - lower left */
+footer::before {
+    content: '';
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 300px;
+    height: 300px;
+    background: url("image folder/trailing_vines_corner.png") no-repeat bottom left;
+    background-size: contain;
+    pointer-events: none;
+    opacity: 0.8;
+    z-index: 0;
+    transform: rotate(180deg) scaleX(-1);
+}
 
 /* Headings */
 h1 {
@@ -172,10 +217,7 @@ button[type="submit"]:hover {
 /* FAQ Page Image */
 #faqImages {
     padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+    display: block;
     margin: 0 auto;
 }
 
@@ -196,30 +238,10 @@ li:hover {
     color: #007BFF;
 }
 
-/* Hide side trees and restore padding on small/medium screens */
-@media (max-width: 1200px) {
-    body {
-        padding-left: 16px;
-        padding-right: 16px;
-    }
-    body::before,
-    body::after {
-        display: none;
-    }
-}
-
-/* Show trees on large screens with proper padding */
-@media (min-width: 1201px) {
-    body {
-        padding-left: var(--side-padding);
-        padding-right: var(--side-padding);
-    }
-    body::before,
-    body::after {
-        display: block;
-        width: var(--side-tree-width);
-        height: 100vh;
-    }
+/* Ensure main and header content is above decorative vines */
+main, header, nav {
+    position: relative;
+    z-index: 1;
 }
 
 /* Home gallery: match donations behavior on small screens */
@@ -291,7 +313,7 @@ li:hover {
     flex-direction: column;
     gap: 8px;
     margin-top: 8px;
-    background: rgba(255,255,255,0.04);
+    background: #b3551e;
     padding: 8px;
     border-radius: 6px;
     min-width: 160px;
@@ -417,6 +439,13 @@ footer {
 /* Ensure main content expands so footer stays at bottom */
 main {
     flex: 1 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+/* FAQ section styling */
+.faq_questions {
+    margin-bottom: 40px;
 }
 
 /* Small-screen adjustments: make footer truly full-width and center RSVP content */
