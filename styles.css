@@ -374,7 +374,7 @@ button {
 }
 
 /* Phone view */
-@media (max-width: 800px) {
+@media (max-width: 768px) {
     button {
         width: 100%;
         padding: 15px;
@@ -449,7 +449,7 @@ main {
 }
 
 /* Small-screen adjustments: make footer truly full-width and center RSVP content */
-@media (max-width: 800px) {
+@media (max-width: 768px) {
     /* Remove negative margins that were used for wide screens */
     footer {
         width: 100%;
