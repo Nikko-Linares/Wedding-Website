@@ -1,6 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Ms+Madi&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Content&display=swap');
 
+/* Layout variables for side decorations */
+:root {
+    --side-tree-width: 360px; /* width of each side tree image */
+    --side-padding: 600px;    /* page padding to keep content away from trees */
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -33,7 +39,7 @@ body::after {
     top: 50%;
     transform: translateY(-50%);
     height: 100vh;
-    width: 420px;
+    width: var(--side-tree-width);
     background: url("image folder/redwood_tree3.png") no-repeat center center;
     background-size: contain;
     pointer-events: none;
@@ -205,13 +211,13 @@ li:hover {
 /* Show trees on large screens with proper padding */
 @media (min-width: 1201px) {
     body {
-        padding-left: 450px;
-        padding-right: 450px;
+        padding-left: var(--side-padding);
+        padding-right: var(--side-padding);
     }
     body::before,
     body::after {
         display: block;
-        width: 420px;
+        width: var(--side-tree-width);
         height: 100vh;
     }
 }
@@ -411,4 +417,53 @@ footer {
 /* Ensure main content expands so footer stays at bottom */
 main {
     flex: 1 0 auto;
+}
+
+/* Small-screen adjustments: make footer truly full-width and center RSVP content */
+@media (max-width: 800px) {
+    /* Remove negative margins that were used for wide screens */
+    footer {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        left: auto;
+        right: auto;
+        position: relative;
+        padding: 20px 0;
+    }
+
+    /* Ensure body padding isn't pushing content off-center */
+    body {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    /* Make RSVP popup responsive and centered */
+    #rsvp_popup {
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 95vw;
+        max-width: 520px;
+        padding: 18px;
+        box-sizing: border-box;
+    }
+
+    /* Center modal content and form fields */
+    .modal-content, #rsvp_popup, .popup-content {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    input[type="text"], input[type="email"], select {
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    button[type="submit"], button {
+        display: block;
+        margin: 12px auto;
+    }
 }
