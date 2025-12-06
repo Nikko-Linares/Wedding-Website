@@ -470,7 +470,8 @@ main {
     /* Hide bottom vines on mobile */
     body::after,
     footer::before {
-        display: none;
+        display: none !important;
+        visibility: hidden !important;
     }
     
     /* Make RSVP popup responsive and centered */
