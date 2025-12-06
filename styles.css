@@ -21,23 +21,24 @@ body {
     color: #f4f4f4;
     line-height: 1.6;
     padding-top: 72px;
-    padding-left: 30px;
-    padding-right: 30px;
+    padding-left: 16px;
+    padding-right: 16px;
 }
 
-/* Decorative fixed side trees */
+/* Decorative fixed side trees - hidden by default */
 body::before,
 body::after {
     content: '';
     position: fixed;
     top: 50%;
     transform: translateY(-50%);
-    height: 4000px;
-    width: 650px;
+    height: 100vh;
+    width: 420px;
     background: url("image folder/redwood_tree3.png") no-repeat center center;
     background-size: contain;
     pointer-events: none;
     opacity: 0.95;
+    display: none;
 }
 
 body::before { left: 0; }
@@ -117,6 +118,17 @@ button[type="submit"]:hover {
     display: block;
 }
 
+/* On larger screens, keep three photos in a row without wrapping */
+@media (min-width: 1201px) {
+    .title-gallery {
+        flex-wrap: nowrap;
+    }
+    #titleImages {
+        flex: 0 0 calc(33.333% - 20px);
+        max-width: 300px;
+    }
+}
+
 /* RSVP Page Image */
 #rsvpImages {
     padding: 20px;
@@ -137,7 +149,18 @@ button[type="submit"]:hover {
 .donationsImages {
     width: 300px;
     height: auto;
-    padding: 20px;
+    border-radius: 8px;
+}
+
+/* On larger screens, keep three photos in a row without wrapping */
+@media (min-width: 1201px) {
+    .donations-gallery {
+        flex-wrap: nowrap;
+    }
+    .donationsImages {
+        flex: 0 0 calc(33.333% - 20px);
+        max-width: 300px;
+    }
 }
 
 /* FAQ Page Image */
@@ -167,8 +190,8 @@ li:hover {
     color: #007BFF;
 }
 
-/* Hide side trees and restore padding on small screens */
-@media (max-width: 960px) {
+/* Hide side trees and restore padding on small/medium screens */
+@media (max-width: 1200px) {
     body {
         padding-left: 16px;
         padding-right: 16px;
@@ -176,6 +199,20 @@ li:hover {
     body::before,
     body::after {
         display: none;
+    }
+}
+
+/* Show trees on large screens with proper padding */
+@media (min-width: 1201px) {
+    body {
+        padding-left: 450px;
+        padding-right: 450px;
+    }
+    body::before,
+    body::after {
+        display: block;
+        width: 420px;
+        height: 100vh;
     }
 }
 
