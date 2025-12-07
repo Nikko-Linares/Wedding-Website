@@ -1,133 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RSVP</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RSVP</title>
 
-    <link rel="stylesheet" href="../styles.css">
-    <link href="https://fonts.googleapis.com/css?family=Ms+Madi" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Content" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Ms+Madi" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Content" rel="stylesheet">
 
-    <!-- Supabase JS -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Supabase JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <!-- Load your private config (NOT tracked by GitHub) -->
-    <script src="../supabase_config.js"></script>
-
+  <!-- Load your private config (NOT tracked by GitHub) -->
+  <script src="../supabase_config.js"></script>
 </head>
 <body>
-    <nav class="nav-container">
-        <button id="menuToggle" aria-expanded="false" aria-controls="quickLinks">Menu ▾</button>
-        <div id="quickLinks" class="quick-links" hidden>
-            <a href="../index.html">Home</a>
-            <a href="donations.html">Gifts/Donations</a>
-            <a href="FAQ.html">FAQ</a>
-        </div>
-    </nav>
-    <h1>RSVP to Our Wedding</h1>
+  <nav class="nav-container">
+    <button id="menuToggle" aria-expanded="false" aria-controls="quickLinks">Menu ▾</button>
+    <div id="quickLinks" class="quick-links" hidden>
+      <a href="../index.html">Home</a>
+      <a href="donations.html">Gifts/Donations</a>
+      <a href="FAQ.html">FAQ</a>
+    </div>
+  </nav>
 
-    <img src="../image_folder/DSC_0199.JPG" id="rsvpImages" alt="Engagement Photo" style="width:400px;height:auto;">
-    <p id="rsvp_message">We are looking forward to seeing you all on our special day! Please RSVP below by April 14th, 2026. 
-    We hope to see you there!</p>
+  <h1>RSVP to Our Wedding</h1>
 
-<main>
+  <img src="../image_folder/DSC_0199.JPG" id="rsvpImages" alt="Engagement Photo" style="width:400px;height:auto;">
+  <p id="rsvp_intro">We are looking forward to seeing you all on our special day! Please RSVP below by April 14th, 2026.
+  We hope to see you there!</p>
+
+  <main>
     <button id="open_rsvp" onclick="openRSVPModal()">RSVP Now</button>
 
     <div id="rsvp_modal" style="display:none;">
-        <div class="modal-content">
-            <span onclick="closeRSVPModal()" style="cursor:pointer; float:right; font-size:1.5em;">&times;</span>
+      <div class="modal-content">
+        <span onclick="closeRSVPModal()" style="cursor:pointer; float:right; font-size:1.5em;">&times;</span>
 
-            <h2>RSVP to Our Wedding</h2>
+        <h2>RSVP to Our Wedding</h2>
 
-            <form id="rsvpForm">
-                <label>Name *:
-                    <input type="text" id="name" required>
-                </label>
+        <form id="rsvpForm">
+          <label>Name *:
+            <input type="text" id="name" required>
+          </label>
 
-                <label>Plus One:
-                    <input type="text" id="plus_one">
-                </label>
+          <label>Plus One:
+            <input type="text" id="plus_one">
+          </label>
 
-                <label>Email *:
-                    <input type="email" id="email" required>
-                </label>
+          <label>Email *:
+            <input type="email" id="email" required>
+          </label>
 
-                <label>Dietary Restrictions:
-                    <input type="text" id="dietary">
-                </label>
+          <label>Dietary Restrictions:
+            <input type="text" id="dietary">
+          </label>
 
-                <label>Will you attend?
-                    <select id="attendance" required>
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-                    </select>
-                </label>
+          <label>Will you attend?
+            <select id="attendance" required>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </label>
 
-                <button type="submit">Submit RSVP</button>
-            </form>
+          <button type="submit">Submit RSVP</button>
+        </form>
 
-            <div id="rsvp_message" style="margin-top:10px;"></div>
-        </div>
+        <!-- unique status element for modal -->
+        <div id="rsvp_status" style="margin-top:10px;"></div>
+      </div>
     </div>
-</main>
+  </main>
 
-</body>
-<footer>
+  <footer>
     <p>&copy; 2026 Meranda and Nikko Wedding</p>
-</footer>
+  </footer>
 
-<script>
-// Modal open/close functions
-function openRSVPModal() {
+  <script>
+  // Modal open/close functions
+  function openRSVPModal() {
     document.getElementById("rsvp_modal").style.display = "block";
-}
-
-function closeRSVPModal() {
+  }
+  function closeRSVPModal() {
     document.getElementById("rsvp_modal").style.display = "none";
-}
+  }
 
-// Main script
-document.addEventListener("DOMContentLoaded", () => {
+  // Main script
+  document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("rsvpForm");
-    const messageDiv = document.getElementById("rsvp_message");
+    const statusDiv = document.getElementById("rsvp_status");
 
-    // Initialize Supabase client
+    if (!form || !statusDiv) return;
+
+    // Check Supabase availability before using it
+    if (!window.supabase || typeof supabase === 'undefined') {
+      console.error('Supabase client not loaded');
+      statusDiv.textContent = "⚠️ RSVP service unavailable right now. Please try again later.";
+      return;
+    }
+    if (typeof supabaseUrl === 'undefined' || typeof supabaseKey === 'undefined') {
+      console.error('Supabase config missing (supabaseUrl / supabaseKey)');
+      statusDiv.textContent = "⚠️ RSVP configuration problem. Please contact the site owner.";
+      return;
+    }
+
     const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
     form.addEventListener("submit", async (e) => {
-        e.preventDefault();
+      e.preventDefault();
+      statusDiv.textContent = "Submitting...";
 
-        const entry = {
-            name: document.getElementById("name").value,
-            plus_one: document.getElementById("plus_one").value,
-            email: document.getElementById("email").value,
-            attendance: document.getElementById("attendance").value,
-            dietary: document.getElementById("dietary").value
-        };
+      const entry = {
+        name: document.getElementById("name").value,
+        plus_one: document.getElementById("plus_one").value,
+        email: document.getElementById("email").value,
+        attendance: document.getElementById("attendance").value,
+        dietary: document.getElementById("dietary").value
+      };
 
-        // Insert into Supabase
+      try {
         const { data, error } = await supabaseClient
-            .from(supabaseTable)
-            .insert([entry]);
+          .from(supabaseTable)
+          .insert([entry]);
 
         if (error) {
-            console.error(error);
-            messageDiv.textContent = "❌ There was an error submitting your RSVP." + error.message;
-            return;
+          console.error('Supabase insert error', error);
+          statusDiv.textContent = "❌ There was an error submitting your RSVP: " + (error.message || error);
+          return;
         }
 
-        // Success!
-        messageDiv.textContent = "✔ Thank you! Your RSVP has been received.";
+        statusDiv.textContent = "✔ Thank you! Your RSVP has been received.";
         form.reset();
-
-        // Optional close after 9 second
         setTimeout(closeRSVPModal, 9000);
+      } catch (err) {
+        console.error('Submit failed', err);
+        statusDiv.textContent = "❌ An unexpected error occurred. Please check your connection and try again.";
+      }
     });
-});
-</script>
+  });
+  </script>
 
-<script src="../scripts.js"></script>
-
+  <script src="../scripts.js"></script>
 </body>
 </html>
