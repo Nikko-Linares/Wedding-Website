@@ -40,7 +40,7 @@ body::before {
     left: 0;
     width: 300px;
     height: 300px;
-    background: url("image folder/trailing_vines_corner.png") no-repeat top left;
+    background: url("image_folder/trailing_vines_corner.png") no-repeat top left;
     background-size: contain;
     pointer-events: none;
     opacity: 0.8;
@@ -55,7 +55,7 @@ body::after {
     right: 0;
     width: 300px;
     height: 300px;
-    background: url("image folder/trailing_vines_corner.png") no-repeat bottom right;
+    background: url("image_folder/trailing_vines_corner.png") no-repeat bottom right;
     background-size: contain;
     pointer-events: none;
     opacity: 0.8;
@@ -71,7 +71,7 @@ main::after {
     right: 0;
     width: 300px;
     height: 300px;
-    background: url("image folder/trailing_vines_corner.png") no-repeat top right;
+    background: url("image_folder/trailing_vines_corner.png") no-repeat top right;
     background-size: contain;
     pointer-events: none;
     opacity: 0.8;
@@ -87,7 +87,7 @@ footer::before {
     left: 0;
     width: 300px;
     height: 300px;
-    background: url("image folder/trailing_vines_corner.png") no-repeat bottom left;
+    background: url("image_folder/trailing_vines_corner.png") no-repeat bottom left;
     background-size: contain;
     pointer-events: none;
     opacity: 0.8;
