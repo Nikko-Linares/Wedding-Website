@@ -80,10 +80,12 @@
   <script>
   // Modal open/close functions
   function openRSVPModal() {
-    document.getElementById("rsvp_modal").style.display = "block";
+    const modal = document.getElementById("rsvp_modal");
+    if (modal) modal.style.display = "block";
   }
   function closeRSVPModal() {
-    document.getElementById("rsvp_modal").style.display = "none";
+    const modal = document.getElementById("rsvp_modal");
+    if (modal) modal.style.display = "none";
   }
 
   // Main script
@@ -93,14 +95,19 @@
 
     if (!form || !statusDiv) return;
 
-    // Check Supabase availability before using it
-    if (!window.supabase || typeof supabase === 'undefined') {
-      console.error('Supabase client not loaded');
+    // Validate that Supabase and config variables are available
+    if (!window.supabase) {
+      console.error('Supabase library not loaded.');
       statusDiv.textContent = "⚠️ RSVP service unavailable right now. Please try again later.";
       return;
     }
     if (typeof supabaseUrl === 'undefined' || typeof supabaseKey === 'undefined') {
-      console.error('Supabase config missing (supabaseUrl / supabaseKey)');
+      console.error('Supabase config (supabaseUrl / supabaseKey) is missing.');
+      statusDiv.textContent = "⚠️ RSVP configuration problem. Please contact the site owner.";
+      return;
+    }
+    if (typeof supabaseTable === 'undefined') {
+      console.error('Supabase table name (supabaseTable) is missing.');
       statusDiv.textContent = "⚠️ RSVP configuration problem. Please contact the site owner.";
       return;
     }
@@ -110,14 +117,22 @@
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       statusDiv.textContent = "Submitting...";
+      statusDiv.style.color = "";
 
       const entry = {
-        name: document.getElementById("name").value,
-        plus_one: document.getElementById("plus_one").value,
-        email: document.getElementById("email").value,
+        name: document.getElementById("name").value.trim(),
+        plus_one: document.getElementById("plus_one").value.trim(),
+        email: document.getElementById("email").value.trim(),
         attendance: document.getElementById("attendance").value,
-        dietary: document.getElementById("dietary").value
+        dietary: document.getElementById("dietary").value.trim()
       };
+
+      // Basic client-side validation
+      if (!entry.name || !entry.email) {
+        statusDiv.textContent = "Please provide your name and email.";
+        statusDiv.style.color = "red";
+        return;
+      }
 
       try {
         const { data, error } = await supabaseClient
@@ -125,17 +140,24 @@
           .insert([entry]);
 
         if (error) {
-          console.error('Supabase insert error', error);
+          console.error('Supabase insert error:', error);
+          // show a helpful message to the user
           statusDiv.textContent = "❌ There was an error submitting your RSVP: " + (error.message || error);
+          statusDiv.style.color = "red";
           return;
         }
 
+        // Success
         statusDiv.textContent = "✔ Thank you! Your RSVP has been received.";
+        statusDiv.style.color = "green";
         form.reset();
+
+        // Optional: close after a few seconds
         setTimeout(closeRSVPModal, 9000);
       } catch (err) {
-        console.error('Submit failed', err);
+        console.error('Unexpected error submitting RSVP:', err);
         statusDiv.textContent = "❌ An unexpected error occurred. Please check your connection and try again.";
+        statusDiv.style.color = "red";
       }
     });
   });
